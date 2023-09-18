@@ -16,33 +16,38 @@ import { ConfigService } from 'src/config/config.service';
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       driver: ApolloDriver,
       imports: [ConfigModule.register()],
-      useFactory: (configService: ConfigService) => ({
-        autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
-        playground: configService.get<boolean>('PLAYGROUND')
-          ? {
-              settings: {
-                'request.credentials': 'include',
-              },
-            }
-          : false,
-        context: ({ req, res, connection }) => {
-          return { req, res, connection };
-        },
-        csrfPrevention: false,
-        validationRules: [depthLimit(3)],
-        // resolvers: { JSON: GraphQLJSON },
-        introspection:
-          configService.get<string>('NODE_ENV') === 'production' ? false : true,
-        transformSchema: (schema) => customDirectiveTransformer(schema),
-        buildSchemaOptions: {
-          directives: [
-            new GraphQLDirective({
-              name: DirectiveTranform.BaseUrlProd,
-              locations: [DirectiveLocation.FIELD_DEFINITION],
-            }),
-          ],
-        },
-      }),
+      useFactory: (configService: ConfigService) => {
+        console.log(configService, 20);
+        return {
+          autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
+          playground: configService.get<boolean>('PLAYGROUND')
+            ? {
+                settings: {
+                  'request.credentials': 'include',
+                },
+              }
+            : false,
+          context: ({ req, res, connection }) => {
+            return { req, res, connection };
+          },
+          csrfPrevention: false,
+          validationRules: [depthLimit(3)],
+          // resolvers: { JSON: GraphQLJSON },
+          introspection:
+            configService.get<string>('NODE_ENV') === 'production'
+              ? false
+              : true,
+          transformSchema: (schema) => customDirectiveTransformer(schema),
+          buildSchemaOptions: {
+            directives: [
+              new GraphQLDirective({
+                name: DirectiveTranform.BaseUrlProd,
+                locations: [DirectiveLocation.FIELD_DEFINITION],
+              }),
+            ],
+          },
+        };
+      },
       inject: [ConfigService],
     }),
   ],
