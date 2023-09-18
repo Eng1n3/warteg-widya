@@ -1,0 +1,9 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+directive @baseUrlProd on FIELD_DEFINITION
+
+type Query {
+  helloWorld: String!
+}
