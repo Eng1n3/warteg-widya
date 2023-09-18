@@ -11,7 +11,8 @@ export class ConfigService {
   constructor() {
     const filePath = `.env`;
     const envFile = path.resolve(__dirname, '../../', filePath);
-    envFile
+    const checkEnvFile = fs.existsSync(envFile);
+    checkEnvFile
       ? (this.envConfig = dotenv.parse(fs.readFileSync(envFile)))
       : (this.envConfig = {});
     type NodeEnvironment = 'development' | 'staging' | 'production' | 'rc';
