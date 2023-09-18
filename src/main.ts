@@ -8,7 +8,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // await dataSource.initialize();
   const configService = app.get(ConfigService);
-  console.log(configService, 11);
+  console.log(configService, process.env.PORT, 11);
   // const port = configService.get<number>('PORT');
   app.useGlobalPipes(
     new ValidationPipe({
@@ -16,6 +16,6 @@ async function bootstrap() {
       transform: true,
     }),
   );
-  await app.listen(8005);
+  await app.listen(process.env.PORT || 8005);
 }
 bootstrap();
