@@ -17,7 +17,6 @@ import { ConfigService } from 'src/config/config.service';
       driver: ApolloDriver,
       imports: [ConfigModule.register()],
       useFactory: (configService: ConfigService) => {
-        console.log(configService, 20);
         return {
           autoSchemaFile: join(process.cwd(), 'src/schema.gql'),
           playground: configService.get<boolean>('PLAYGROUND')
