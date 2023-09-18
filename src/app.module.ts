@@ -9,7 +9,7 @@ import { AppResolver } from './app.resolver';
 @Module({
   imports: [
     ConfigModule.register(),
-    TypeOrmModule.forRoot(dataSourceOptions),
+    // TypeOrmModule.forRoot(dataSourceOptions),
     GraphqlModule,
   ],
   providers: [AppService, AppResolver],
