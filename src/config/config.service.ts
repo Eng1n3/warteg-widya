@@ -14,7 +14,7 @@ export class ConfigService {
     const checkEnvFile = fs.existsSync(envFile);
     checkEnvFile
       ? (this.envConfig = dotenv.parse(fs.readFileSync(envFile)))
-      : (this.envConfig = {});
+      : (this.envConfig = process.env);
     type NodeEnvironment = 'development' | 'staging' | 'production' | 'rc';
     this.envConfig.NODE_ENV =
       (process.env.NODE_ENV as NodeEnvironment) ?? 'development';
