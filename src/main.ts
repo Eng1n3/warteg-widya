@@ -8,13 +8,14 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // await dataSource.initialize();
   const configService = app.get(ConfigService);
-  const port = configService.get<number>('PORT');
+  console.log(configService, 11);
+  // const port = configService.get<number>('PORT');
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
       transform: true,
     }),
   );
-  await app.listen(port);
+  await app.listen(8005);
 }
 bootstrap();
